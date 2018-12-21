@@ -1,77 +1,76 @@
-// Initial array of giphys
-var giphys = ["The Matrix", "The Notebook", "Mr. Nobody", "The Lion King"];
-    
-// Function for dumping the JSON content for each button into the div
+
+// Initial array of topics
+var topics = ["Blue Whale", "Skunk", "Koala", "Lion"];
+var imageLimit = 10;
+
+// displayGiphyInfo function re-renders the HTML to display the appropriate content
 function displayGiphyInfo() {
 
-  // YOUR CODE GOES HERE!!! HINT: You will need to create a new div to hold the JSON.
+  $("#giphy-json").empty();
 
-      var giphy = $(this).attr("data-name");
-      var queryURL = "https://api.giphy.com/v1/gifs/trending?q=" + giphy + "&api_key=xSOQRZ0F8H78eA9AQoQwki0O7PAuxiH8";
+  var giphy = $(this).attr("data-name");
+  var queryURL = "https://api.giphy.com/v1/gifs/trending?q=" + giphy + "&limit=" +imageLimit+ "&api_key=xSOQRZ0F8H78eA9AQoQwki0O7PAuxiH8";
 
-      // Creates AJAX call for the specific movie button being clicked
-      $.ajax({
-        url: queryURL,
-        method: "GET"
-      }).then(function(response) {
+  // Creates AJAX call for the specific giphy button being clicked
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response) {
 
-      // Creates a div to hold the movie
-      // Retrieves the Rating Data
-      // Creates an element to have the rating displayed
-      // Displays the rating
-      // Retrieves the release year
-      // Creates an element to hold the release year
-      // Displays the release year
-      // Retrieves the plot
-      // Creates an element to hold the plot
-      // Appends the plot
-      // Creates an element to hold the image
-      // Appends the image
-      // Puts the entire Movie above the previous movies.
-      });
+    for (i=0;i<imageLimit;i++) {
+      var giphyImage = $("<img>");
+      giphyImage.attr = ("src", response.data[i].images.fixed_height.url);
+      $("#giphy-images").append(giphyImage);
+      console.log(i+ ": " +response.data[i].images.fixed_height.url);
+    }
+
+    $("#giphy-json").text(JSON.stringify(response));
+
+  });
 
 }
 
 // Function for displaying giphy data
 function renderButtons() {
 
-  // Deleting the buttons prior to adding new giphys
+  // Deletes the topics prior to adding new topics
   // (this is necessary otherwise you will have repeat buttons)
   $("#buttons-view").empty();
 
-  // Looping through the array of giphys
-  for (var i = 0; i < giphys.length; i++) {
+  // Loops through the array of topics
+  for (var i = 0; i < topics.length; i++) {
 
-    // Then dynamicaly generating buttons for each giphy in the array
+    // Then dynamicaly generates buttons for each giphy in the array
     // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
     var a = $("<button>");
-    // Adding a class of giphy to our button
+    // Adds a class of giphy to our button
     a.addClass("giphy");
-    // Adding a data-attribute
-    a.attr("data-name", giphys[i]);
-    // Providing the initial button text
-    a.text(giphys[i]);
-    // Adding the button to the buttons-view div
+    // Added a data-attribute
+    a.attr("data-name", topics[i]);
+    // Provided the initial button text
+    a.text(topics[i]);
+    // Added the button to the buttons-view div
     $("#buttons-view").append(a);
   }
 }
 
-// This function handles events where one button is clicked
+// This function handles events where the add giphy button is clicked
 $("#add-giphy").on("click", function(event) {
+  
   event.preventDefault();
 
-  // This line grabs the input from the textbox
+  // This line of code will grab the input from the textbox
   var giphy = $("#giphy-input").val().trim();
 
   // The giphy from the textbox is then added to our array
-  giphys.push(giphy);
+  topics.push(giphy);
 
   // Calling renderButtons which handles the processing of our giphy array
   renderButtons();
 
 });
 
-// Generic function for displaying the giphyInfo
+// Adding click event listeners to all elements with a class of "giphy"
 $(document).on("click", ".giphy", displayGiphyInfo);
 
 // Calling the renderButtons function to display the intial buttons
