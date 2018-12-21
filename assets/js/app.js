@@ -21,6 +21,7 @@ function displayGiphyInfo() {
 
   // $("#giphy-json").empty();
   $("#giphy-images").empty();
+  $("#card-container").show();
 
   var giphy = $(this).attr("data-name");
   console.log(giphy);
@@ -98,3 +99,4 @@ $(document).on("click", ".giphy", displayGiphyInfo);
 
 // Calling the renderButtons function to display the intial buttons
 renderButtons();
+$("#card-container").hide();
