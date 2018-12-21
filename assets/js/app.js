@@ -7,6 +7,7 @@ var imageLimit = 10;
 function displayGiphyInfo() {
 
   $("#giphy-json").empty();
+  $("#giphy-images").empty();
 
   var giphy = $(this).attr("data-name");
   var queryURL = "https://api.giphy.com/v1/gifs/trending?q=" + giphy + "&limit=" +imageLimit+ "&api_key=xSOQRZ0F8H78eA9AQoQwki0O7PAuxiH8";
@@ -19,9 +20,9 @@ function displayGiphyInfo() {
 
     for (i=0;i<imageLimit;i++) {
       var giphyImage = $("<img>");
-      giphyImage.attr = ("src", response.data[i].images.fixed_height.url);
-      $("#giphy-images").append(giphyImage);
+      giphyImage.attr("src", response.data[i].images.fixed_height.url);
       console.log(i+ ": " +response.data[i].images.fixed_height.url);
+      $("#giphy-images").append(giphyImage);
     }
 
     $("#giphy-json").text(JSON.stringify(response));
