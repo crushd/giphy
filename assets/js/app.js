@@ -1,16 +1,30 @@
 
 // Initial array of topics
-var topics = ["Blue Whale", "Skunk", "Koala", "Lion"];
+var topics = [
+  "The Godfather",
+  "The Shawshank Redemption",
+  "Schindler's List",
+  "Raging Bull",
+  "Casablanca",
+  "Citizen Kane",
+  "Gone with the Wind",
+  "The Wizard of Oz",
+  "One Flew Over the Cuckoo's Nest",
+  "Lawrence of Arabia"
+];
 var imageLimit = 10;
 
 // displayGiphyInfo function re-renders the HTML to display the appropriate content
 function displayGiphyInfo() {
 
-  $("#giphy-json").empty();
+  console.log();
+
+  // $("#giphy-json").empty();
   $("#giphy-images").empty();
 
   var giphy = $(this).attr("data-name");
-  var queryURL = "https://api.giphy.com/v1/gifs/trending?q=" + giphy + "&limit=" +imageLimit+ "&api_key=xSOQRZ0F8H78eA9AQoQwki0O7PAuxiH8";
+  console.log(giphy);
+  var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphy + "&limit=" +imageLimit+ "&api_key=xSOQRZ0F8H78eA9AQoQwki0O7PAuxiH8";
 
   // Creates AJAX call for the specific giphy button being clicked
   $.ajax({
@@ -19,13 +33,21 @@ function displayGiphyInfo() {
   }).then(function(response) {
 
     for (i=0;i<imageLimit;i++) {
-      var giphyImage = $("<img>");
-      giphyImage.attr("src", response.data[i].images.fixed_height.url);
-      console.log(i+ ": " +response.data[i].images.fixed_height.url);
-      $("#giphy-images").append(giphyImage);
+
+      var giphyImage = $("#giphy-image"+(i+1)).attr("src", response.data[i].images.fixed_height.url);
+      var giphyRating = $("#giphy-rating"+(i+1)).html(response.data[i].rating);
+      var giphyURL = $("#giphy-url"+(i+1)).html(response.data[i].bitly_gif_url);
+      // $("#giphy-images").append(h);
+
+      // var giphyImage = $("<img>");
+      // giphyImage.addClass("card-img-top");
+      // giphyImage.attr("src", response.data[i].images.fixed_height.url);
+      
+      //console.log(i+ ": " +response.data[i].images.fixed_height.url);
+      // $("#giphy-container").append(giphyImage);
     }
 
-    $("#giphy-json").text(JSON.stringify(response));
+    // $("#giphy-json").text(JSON.stringify(response));
 
   });
 
