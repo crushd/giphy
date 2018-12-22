@@ -34,7 +34,9 @@ function displayGiphyInfo() {
     for (i=0;i<imageLimit;i++) {
 
       var giphyImage = $("#giphy-image"+(i+1)).attr("src", response.data[i].images.fixed_height.url);
-      var giphyRating = $("#giphy-rating"+(i+1)).html(response.data[i].rating);
+      var giphyRatingOut = response.data[i].rating;
+      var res = giphyRatingOut.toUpperCase();
+      var giphyRating = $("#giphy-rating"+(i+1)).html(res);
       var giphyURL = $("#giphy-url"+(i+1)).html(response.data[i].bitly_gif_url);
       // $("#giphy-images").append(h);
 
