@@ -5,19 +5,17 @@ var topics = [
   "The Shawshank Redemption",
   "Schindler's List",
   "Raging Bull",
-  "Casablanca",
-  "Citizen Kane",
-  "Gone with the Wind",
-  "The Wizard of Oz",
-  "One Flew Over the Cuckoo's Nest",
+  //"Casablanca",
+  //"Citizen Kane",
+  //"Gone with the Wind",
+  //"The Wizard of Oz",
+  //"One Flew Over the Cuckoo's Nest",
   "Lawrence of Arabia"
 ];
 var imageLimit = 10;
 
 // displayGiphyInfo function re-renders the HTML to display the appropriate content
 function displayGiphyInfo() {
-
-  console.log();
 
   // $("#giphy-json").empty();
   $("#giphy-images").empty();
